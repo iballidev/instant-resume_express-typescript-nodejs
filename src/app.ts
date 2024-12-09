@@ -1,10 +1,11 @@
 /* eslint-disable prettier/prettier */
+import http from 'http';
+import cors from 'cors';
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import http from 'http';
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
 // import { handleError } from './helpers/error';
@@ -12,6 +13,7 @@ import httpLogger from './middlewares/http-logger';
 import router from './routes/index';
 import ApiRouter from './app-api/routes/index';
 import { errorHandler } from './middlewares/error-handler';
+import corsOptions from './config/cors-options';
 
 const app: express.Application = express();
 
@@ -23,6 +25,9 @@ app.use(httpLogger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Enable CORS
+app.use(cors(corsOptions));
 
 app.use('/', router);
 

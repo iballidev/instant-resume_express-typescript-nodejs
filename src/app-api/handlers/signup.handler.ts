@@ -3,7 +3,7 @@
 /* eslint-disable prettier/prettier */
 import express from "express";
 import userModel from "../models/user.model";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const handle_signup = async (_req: express.Request, res: express.Response, next:express.NextFunction) => {
   const { name, email, password } = _req.body;
@@ -17,7 +17,6 @@ const handle_signup = async (_req: express.Request, res: express.Response, next:
 
     /**check for duplicate */
     const foundUser = await userModel.User.findOne({ email: email });
-    console.log({ foundUser });
     if (foundUser) {
       return res.status(409).json({
         message: 'User already exist!',
@@ -44,8 +43,8 @@ const handle_signup = async (_req: express.Request, res: express.Response, next:
     }
 
   } catch (error: any) {
-    console.log("Error=>: ", error);
-    console.log("Error message=>: ", error.message);
+    // console.log("Error=>: ", error);
+    // console.log("Error message=>: ", error.message);
     next(error);
   }
 };

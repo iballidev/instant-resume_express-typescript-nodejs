@@ -1,4 +1,8 @@
 /* eslint-disable prettier/prettier */
-import authHandlers from './signup.handler';
+import signUpHandler from "./signup.handler";
+import signInHandler from "./signin.handler";
 
-export const handlers = { authHandlers };
+export const handlers = {
+  signUpHandler,
+  signInHandler,
+};
